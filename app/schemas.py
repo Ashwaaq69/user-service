@@ -1,4 +1,5 @@
-from pydantic import BaseModel, EmailStr
+# schemas.py
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 
 class UserBase(BaseModel):
@@ -7,18 +8,18 @@ class UserBase(BaseModel):
     age: int
 
 class UserCreate(UserBase):
-    password: str
+    password: str  # Plain password from request
 
 class UserUpdate(BaseModel):
     name: Optional[str] = None
     email: Optional[EmailStr] = None
     age: Optional[int] = None
+    password: Optional[str] = None  # Optional password update
 
 class User(UserBase):
     id: int
-
-class UserOut(User):
-    
+    hashed_password: str  # Hashed password in response
+class UserOut(UserBase):
+    id: int    
     class Config:
-        orm_mode = True  # <-- For Pydantic v1
-        # from_attributes = True  # <-- Use this only if you are using Pydantic v2
+        orm_mode = True

@@ -1,11 +1,14 @@
+# models.py
 from sqlalchemy import Column, Integer, String
-from app.database import Base
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class User(Base):
     __tablename__ = "users"
-
+    
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    email = Column(String, unique=True, index=True, nullable=False)
-    age = Column(Integer, nullable=False)
-    password = Column(String, nullable=False) 
+    name = Column(String)
+    email = Column(String, unique=True, index=True)
+    age = Column(Integer)
+    hashed_password = Column(String)  # This should match crud.py
