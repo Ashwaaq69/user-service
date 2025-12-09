@@ -1,26 +1,24 @@
-from pydantic import BaseModel, EmailStr, Field
-
+from pydantic import BaseModel, EmailStr
+from typing import Optional
 
 class UserBase(BaseModel):
-    name : str = Field(..., min_length=1, max_length=128)
+    name: str
     email: EmailStr
-    age: int = Field(..., ge=0, le=120)
-    
+    age: int
 
 class UserCreate(UserBase):
-    password: str = Field(..., min_length=8)   
-    
-    
-class UserUpdate(BaseModel):
-    name : str = Field(None, min_length=1, max_length=128)
-    email: EmailStr |None = None
-    age: int |None = Field(None, ge=0, le=120)
-    
-    
-    
-    class UserOut(UserBase):
-        id: int
+    password: str
 
-        class Config:
-            orm_mode = True
-   
+class UserUpdate(BaseModel):
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    age: Optional[int] = None
+
+class User(UserBase):
+    id: int
+
+class UserOut(User):
+    
+    class Config:
+        orm_mode = True  # <-- For Pydantic v1
+        # from_attributes = True  # <-- Use this only if you are using Pydantic v2
