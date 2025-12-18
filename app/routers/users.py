@@ -1,8 +1,6 @@
-# routers/users.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List  # Make sure to import List
-
+from typing import List  
 from app import crud, schemas
 from app.database import get_db
 
@@ -16,7 +14,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=409, detail="Email already registered")
     return crud.create_user(db=db, user=user)
 
-# ✅ GET /users/ - List all users (MAKE SURE THIS EXISTS!)
+# ✅ GET /users/ - List all users 
 @router.get("/users/", response_model=List[schemas.User])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)

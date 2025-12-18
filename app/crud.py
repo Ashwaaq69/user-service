@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app import models, schemas
-import bcrypt  # Add this import
+import bcrypt  
 
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()

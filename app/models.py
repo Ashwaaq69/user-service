@@ -1,4 +1,3 @@
-# models.py
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -11,4 +10,4 @@ class User(Base):
     name = Column(String)
     email = Column(String, unique=True, index=True)
     age = Column(Integer)
-    hashed_password = Column(String)  # This should match crud.py
+    hashed_password = Column(String)  
